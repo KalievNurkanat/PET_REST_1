@@ -6,6 +6,12 @@ from rest_framework.exceptions import ValidationError
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
+class OauthAPISerializer(serializers.Serializer):
+    code = serializers.CharField()
+
+class RedisCodeSerializer(serializers.Serializer):
+    code = serializers.CharField()
+
 class CustomJWTSerializer(TokenObtainPairSerializer):
 
     @classmethod

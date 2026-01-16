@@ -4,6 +4,8 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 # Create your models here.
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=50)
+    first_name = models.CharField(null=True, blank=True)
+    last_name = models.CharField(null=True, blank=True)
     password = models.CharField(max_length=10)
     email = models.EmailField(unique=True)
     phone_number = models.CharField()
