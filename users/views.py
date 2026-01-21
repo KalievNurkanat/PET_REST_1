@@ -39,7 +39,7 @@ class ConfirmCodeView(CreateAPIView):
         user = serializer.validated_data["user_id"]
 
         try:
-            confirm = Confirm.objects.get(code=code)
+            confirm = Confirm.objects.get(code=code, user=user)
         except Confirm.DoesNotExist:
             raise ValidationError("Invalid code or user")
         

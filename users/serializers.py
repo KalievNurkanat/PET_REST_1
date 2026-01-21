@@ -5,6 +5,7 @@ from users.models import Confirm
 from rest_framework.exceptions import ValidationError
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from users.tasks import add, send_via_email
 
 class OauthAPISerializer(serializers.Serializer):
     code = serializers.CharField()
@@ -48,6 +49,8 @@ class RegisterSerializer(serializers.ModelSerializer):
 
         code = str(random.randint(100000, 999999))
         Confirm.objects.create(code=code, user=user)
+        add.delay(3,7)
+        send_via_email.delay(email=validated_data["email"], code=code)
         return user
 
 

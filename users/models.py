@@ -6,7 +6,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=50)
     first_name = models.CharField(null=True, blank=True)
     last_name = models.CharField(null=True, blank=True)
-    password = models.CharField(max_length=10)
+    password = models.CharField()
     email = models.EmailField(unique=True)
     phone_number = models.CharField()
     is_active = models.BooleanField(default=False)
