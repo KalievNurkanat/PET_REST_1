@@ -9,7 +9,7 @@ from common.permissions import IsAdmin, IsAuthenticated, IsOwner, IsGuest
 
 class CategoryView(ListCreateAPIView):
     queryset = Category.objects.all()
-    permission_classes = [IsGuest | (IsAdmin & IsAuthenticated)]
+    permission_classes = [IsGuest | IsAdmin | IsAuthenticated]
 
     def get_serializer_class(self):
         if self.request.method == "GET":

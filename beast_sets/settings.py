@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 from datetime import timedelta
 from pathlib import Path
 import os
-from decouple import config
+from decouple import config, Csv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,7 +27,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='127.0.0.1', cast=Csv())
 
 
 # Application definition
@@ -112,7 +112,7 @@ DATABASES = {
         'NAME': os.environ.get("DB_NAME"),
         'USER': os.environ.get("DB_USER"),
         'PASSWORD': os.environ.get("PASSWORD"),
-        'HOST': os.environ.get("HOST"),
+        'HOST': 'database',
         'PORT': os.environ.get("PORT")
     }
 }
@@ -166,8 +166,8 @@ CACHES = {
     }
 }
 
-CELERY_BROKER_URL = "redis://127.0.0.1:6379/1"
-CELERY_RESULT_BACKEND = "redis://127.0.0.1:6379/3"
+CELERY_BROKER_URL = config('CELERY_BROKER_URL')
+CELERY_RESULT_BACKEND = config('CELERY_RESULT_BACKEND')
 
 
 EMAIL_USE_TLS = True
